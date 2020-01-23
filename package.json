@@ -1,0 +1,35 @@
+{
+  "name": "@imin/speck",
+  "version": "0.0.0",
+  "description": "Specification for TypeScript types, Run-time validation & test-data generation",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imin-ltd/speck.git"
+  },
+  "author": "Luke Winship <luke.winship@gmail.com> (https://github.com/lukehesluke)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imin-ltd/speck/issues"
+  },
+  "homepage": "https://github.com/imin-ltd/speck#readme",
+  "devDependencies": {
+    "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
+  "dependencies": {
+    "fast-check": "^1.21.0",
+    "fp-ts": "^2.4.1",
+    "io-ts": "^2.0.6",
+    "moment": "^2.24.0"
+  }
+}
