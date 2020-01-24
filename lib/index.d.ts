@@ -45,6 +45,18 @@ export const urlString: NonObjectSpeck<string>;
 export const isoDateTimeString: NonObjectSpeck<string, t.Branded<string, IsoDateTimeStringBrand>>;
 
 /**
+ * Floating point number
+ *
+ * - TypeScript: number
+ * - Runtime validation: is it a number?
+ * - Generation: Random floating point number
+ *
+ * TODO: Make min/max digit (for generation) a parameter rather than fixed at
+ * -100 - 100
+ */
+export const float: NonObjectSpeck<number>;
+
+/**
  * You could use this for a price, for example
  *
  * - TypeScript: number
@@ -54,6 +66,18 @@ export const isoDateTimeString: NonObjectSpeck<string, t.Branded<string, IsoDate
  * TODO: Make max digit (for generation) a parameter rather than fixed at 100
  */
 export const positiveFloat: NonObjectSpeck<number>;
+
+/**
+ * Integer
+ *
+ * - TypeScript: number
+ * - Runtime validation: is it an integer?
+ * - Generation: Random integer
+ *
+ * TODO: Make min/max digit (for generation) a parameter rather than fixed at
+ * -100 - 100
+ */
+export const int: NonObjectSpeck<number, t.Branded<number, t.IntBrand>>;
 
 /**
  * Positive integer
@@ -102,6 +126,32 @@ export function intersection<
   TA extends ObjectSpeck<any>,
   TB extends ObjectSpeck<any>
 >(specks: [TA, TB]): IntersectionType<[TA, TB]>;
+
+/**
+ * From a record of specks, pick which ones will be required fields and which
+ * will be optional. e.g.
+ *
+ * ```js
+ * const FIELDS = {
+ *   type: s.literal('Spaceship'),
+ *   fuel: s.positiveFloat,
+ *   crew: s.array(Person),
+ *   name: s.string,
+ * };
+ * const MannedShip = pickRequireds(FIELDS, ['type', 'fuel', 'crew']); // `name` is optional
+ * const SemiAutonomousShip = pickRequireds(FIELDS, ['type', 'fuel']); // `crew` and `name` are optional
+ * ```
+  */
+export function pickRequireds<
+  TRecordOfSpecks extends _BaseRecordOfSpecks,
+  TRequiredFields extends keyof TRecordOfSpecks,
+>(
+  recordOfSpecks: TRecordOfSpecks,
+  requiredFields: TRequiredFields[],
+): IntersectionType<[
+  TypeType<Pick<TRecordOfSpecks, TRequiredFields>>,
+  PartialType<Omit<TRecordOfSpecks, TRequiredFields>>,
+]>;
 
 /**
  * Generate test data for a speck

@@ -59,8 +59,6 @@ export type TypeOf<T extends Speck<any>> = t.OutputOf<T['_ioTsType']>;
  */
 export type _BaseRecordOfSpecks = Record<string, Speck<any>>;
 
-export type LiteralType<TLiteralValue extends string> = NonObjectSpeck<TLiteralValue>;
-
 export type ArrayType<TSpeck extends Speck<any>> = NonObjectSpeck<TypeOf<TSpeck>[]>;
 
 /**
@@ -75,12 +73,8 @@ export type PartialType<TRecordOfSpecks extends _BaseRecordOfSpecks> = ObjectSpe
   [K in keyof TRecordOfSpecks]?: TypeOf<TRecordOfSpecks[K]>;
 }>;
 
-export type RecordyType<TRecordOfSpecks extends _BaseRecordOfSpecks> =
-  | TypeType<TRecordOfSpecks>
-  | PartialType<TRecordOfSpecks>;
-
-export type IntersectionType<TRecordyTypes extends [RecordyType<any>, RecordyType<any>]> =
-  ObjectSpeck<TypeOf<TRecordyTypes[0]> & TypeOf<TRecordyTypes[1]>>;
+export type IntersectionType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpeck<any>]> =
+  ObjectSpeck<TypeOf<TObjectSpecks[0]> & TypeOf<TObjectSpecks[1]>>;
 
 // # io-ts Brand types
 

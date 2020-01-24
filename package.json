@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/imin-ltd/speck#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.149",
     "typescript": "^3.7.5"
   },
   "engines": {
@@ -30,6 +31,7 @@
     "fast-check": "^1.21.0",
     "fp-ts": "^2.4.1",
     "io-ts": "^2.0.6",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0"
   }
 }
