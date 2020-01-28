@@ -76,24 +76,32 @@ export type PartialType<TRecordOfSpecks extends _BaseRecordOfSpecks> = ObjectSpe
 export type IntersectionType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpeck<any>]> =
   ObjectSpeck<TypeOf<TObjectSpecks[0]> & TypeOf<TObjectSpecks[1]>>;
 
-export type UnionType<TSpecks extends [Speck<any>, Speck<any>]> =
-  TSpecks[0] extends ObjectSpeck<any>
-    ? (TSpecks[1] extends ObjectSpeck<any>
-      // iff both specks are ObjectSpecks, then the result will be an
-      // ObjectSpeck. Otherwise, the result will be a NonObjectSpeck.
-      //
-      // This is important as intersection() can only meaningfully work on
-      // ObjectSpecks (e.g. what's the intersection between `3` and
-      // `{ x: number }`? No value could satisfy that intersection, so it's
-      // meaningless).
-      //
-      // Therefore, by doing this, we ensure that intersection, which only
-      // accepts ObjectSpecks, will never be given specks that have any chance
-      // of not representing objects (e.g. this disallows
-      // `'hi' | { x: number }` from being given as an input to intersection()).
-      ? ObjectSpeck<TypeOf<TSpecks[0]> | TypeOf<TSpecks[1]>>
-      : NonObjectSpeck<TypeOf<TSpecks[0]> | TypeOf<TSpecks[1]>>)
-    : NonObjectSpeck<TypeOf<TSpecks[0]> | TypeOf<TSpecks[1]>>;
+// A glimpse into what a better world could look like. Alas, I was not able to
+// get this to work:
+//
+// ```ts
+// export type UnionType<TSpecks extends [Speck<any>, Speck<any>]> =
+//   TSpecks[0] extends ObjectSpeck<any>
+//     ? (TSpecks[1] extends ObjectSpeck<any>
+//       // iff both specks are ObjectSpecks, then the result will be an
+//       // ObjectSpeck. Otherwise, the result will be a NonObjectSpeck.
+//       //
+//       // This is important as intersection() can only meaningfully work on
+//       // ObjectSpecks (e.g. what's the intersection between `3` and
+//       // `{ x: number }`? No value could satisfy that intersection, so it's
+//       // meaningless).
+//       //
+//       // Therefore, by doing this, we ensure that intersection, which only
+//       // accepts ObjectSpecks, will never be given specks that have any chance
+//       // of not representing objects (e.g. this disallows
+//       // `'hi' | { x: number }` from being given as an input to intersection()).
+//       ? ObjectSpeck<TypeOf<TSpecks[0]> | TypeOf<TSpecks[1]>>
+//       : NonObjectSpeck<TypeOf<TSpecks[0]> | TypeOf<TSpecks[1]>>)
+//     : NonObjectSpeck<TypeOf<TSpecks[0]> | TypeOf<TSpecks[1]>>;
+// ```
+
+export type UnionObjectsType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpeck<any>]> =
+  ObjectSpeck<TypeOf<TObjectSpecks[0]> | TypeOf<TObjectSpecks[1]>>;
 
 // # io-ts Brand types
 
