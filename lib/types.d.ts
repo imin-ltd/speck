@@ -103,8 +103,8 @@ export type IntersectionType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpec
 export type UnionObjectsType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpeck<any>]> =
   ObjectSpeck<TypeOf<TObjectSpecks[0]> | TypeOf<TObjectSpecks[1]>>;
 
-export type UnionNonObjectsType<TNonObjectSpecks extends [NonObjectSpeck<any>, NonObjectSpeck<any>]> =
-  NonObjectSpeck<TypeOf<TNonObjectSpecks[0]> | TypeOf<TNonObjectSpecks[1]>>;
+export type UnionType<TSpecks extends [Speck<any>, Speck<any>]> =
+  NonObjectSpeck<TypeOf<TSpecks[0]> | TypeOf<TSpecks[1]>>;
 
 // # io-ts Brand types
 
