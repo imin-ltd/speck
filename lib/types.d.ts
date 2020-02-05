@@ -103,6 +103,9 @@ export type IntersectionType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpec
 export type UnionObjectsType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpeck<any>]> =
   ObjectSpeck<TypeOf<TObjectSpecks[0]> | TypeOf<TObjectSpecks[1]>>;
 
+export type UnionNonObjectsType<TNonObjectSpecks extends [NonObjectSpeck<any>, NonObjectSpeck<any>]> =
+  NonObjectSpeck<TypeOf<TNonObjectSpecks[0]> | TypeOf<TNonObjectSpecks[1]>>;
+
 // # io-ts Brand types
 
 export interface IsoDateTimeStringBrand {
