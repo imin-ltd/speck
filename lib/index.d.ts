@@ -15,6 +15,7 @@ declare const _exports: {
     partial: typeof partial;
     intersection: typeof intersection;
     unionObjects: typeof unionObjects;
+    union: typeof union;
     pickRequireds: typeof pickRequireds;
     gen: typeof gen;
     SpeckValidationErrors: typeof SpeckValidationErrors;
@@ -112,7 +113,6 @@ declare function intersection<TA extends import("./types").ObjectSpeck<any, any>
  * any chance of not representing objects (e.g. this disallows
  * `'hi' | { x: number }` from being given as an input to intersection()).
  *
- * TODO Create a non-object union function
  *
  * Example:
  *
@@ -150,6 +150,52 @@ declare function intersection<TA extends import("./types").ObjectSpeck<any, any>
  * @returns {import('./types').UnionObjectsType<[TA, TB]>}
  */
 declare function unionObjects<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").ObjectSpeck<TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"], TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"]>;
+/**
+ * A speck that could be one type or another. Equivalent to `|` in TypeScript
+ * (https://www.typescriptlang.org/docs/handbook/advanced-types.html#union-types).
+ *
+ * This type of union cannot be used with intersection(). This is because
+ * intersection() cannot meaningfully work on
+ * NonObjectSpecks (e.g. what's the intersection between `3` and
+ * `{ x: number }`? No value could satisfy that intersection, so it's
+ * meaningless).
+ *
+ * Example:
+ *
+ * ```js
+ * >  var s = require('./lib')
+ * > const NumberOrString = s.union([s.string, s.int]);
+ * > s.gen(NumberOrString)
+ * 1
+ * > s.gen(NumberOrString)
+ * 'qfxl'
+ * > s.validate(NumberOrString, 1);
+ * 1
+ * > s.validate(NumberOrString, '1');
+ * '1'
+ * > s.validate(NumberOrString, true);
+ * { Error: SpeckValidationErrors
+ *     at Object.validate (/Volumes/Imin Virtual Disk/Imin/speck/lib/index.js:481:12)
+ *     at repl:1:3
+ *     at Script.runInThisContext (vm.js:122:20)
+ *     at REPLServer.defaultEval (repl.js:332:29)
+ *     at bound (domain.js:402:14)
+ *     at REPLServer.runBound [as eval] (domain.js:415:12)
+ *     at REPLServer.onLine (repl.js:642:10)
+ *     at REPLServer.emit (events.js:203:15)
+ *     at REPLServer.EventEmitter.emit (domain.js:448:20)
+ *     at REPLServer.Interface._onLine (readline.js:308:10)
+ *   errors:
+ *    [ { value: true, context: [Array], message: undefined },
+ *      { value: true, context: [Array], message: undefined } ] }
+ * ```
+ *
+ * @template {import('./types').Speck<any>} TA
+ * @template {import('./types').Speck<any>} TB
+ * @param {[TA, TB]} specks
+ * @returns {import('./types').UnionType<[TA, TB]>}
+ */
+declare function union<TA extends import("./types").Speck<any, any>, TB extends import("./types").Speck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").NonObjectSpeck<TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"], TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"]>;
 /**
  * From a record of specks, pick which ones will be required fields and which
  * will be optional. e.g.
