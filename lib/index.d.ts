@@ -250,6 +250,25 @@ declare class SpeckValidationErrors extends Error {
  * @template TUnderlyingType
  * @param {import('./types').Speck<TUnderlyingType>} speck
  * @param {unknown} item
+ * @param {object} options
+ * @param {boolean} [options.skipStrict] If true, the validation will be not
+ *   "strict" i.e. it will not strip out excessive fields.
+ *   ! io-ts can return an error `no codec found to encode value in union type`
+ *   when doing strict encoding on a type that includes unions. I'm not sure of
+ *   the reason for this, but I suggest setting `skipStrict` to true if you
+ *   run into this issue.
+ *   Here's an example session demonstrating this option:
+ *
+ *   ```js
+ *   > var s = require('@imin/speck')
+ *   > var S = s.type({ x: s.float, y: s.float })
+ *   > s.validate(S, { x: 12, y: 34, z: 56 }, { skipStrict: true })
+ *   { x: 12, y: 34, z: 56 }
+ *   > s.validate(S, { x: 12, y: 34, z: 56 }, { skipStrict: false })
+ *   { x: 12, y: 34 }
+ *   ```
  * @return {TUnderlyingType | SpeckValidationErrors}
  */
-declare function validate<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown): SpeckValidationErrors | TUnderlyingType;
+declare function validate<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown, { skipStrict }?: {
+    skipStrict?: boolean;
+}): SpeckValidationErrors | TUnderlyingType;
