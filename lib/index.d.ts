@@ -5,8 +5,10 @@ declare const _exports: {
     emailString: import("./types").NonObjectSpeck<string, string>;
     isoDateTimeString: import("./types").NonObjectSpeck<string, import("io-ts").Branded<string, import("./types").IsoDateTimeStringBrand>>;
     float: import("./types").NonObjectSpeck<number, number>;
+    nonNegativeFloat: import("./types").NonObjectSpeck<number, number>;
     positiveFloat: import("./types").NonObjectSpeck<number, number>;
     int: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
+    nonNegativeInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
     positiveInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
     boolean: import("./types").NonObjectSpeck<boolean, boolean>;
     array: typeof array;
