@@ -61,6 +61,8 @@ export type _BaseRecordOfSpecks = Record<string, Speck<any>>;
 
 export type ArrayType<TSpeck extends Speck<any>> = NonObjectSpeck<TypeOf<TSpeck>[]>;
 
+export type NonEmptyBrandedArrayType<TSpeck extends Speck<any>> = NonObjectSpeck<TypeOf<TSpeck>[], t.Branded<TypeOf<TSpeck>[], NonEmptyArrayBrand<TypeOf<TSpeck>>>>;
+
 /**
  * The name is strange but it is consistent with the naming scheme. This is
  * the TypeScript "type" of values returned by the "type" function.
@@ -110,4 +112,9 @@ export type UnionType<TSpecks extends [Speck<any>, Speck<any>]> =
 
 export interface IsoDateTimeStringBrand {
   readonly IsoDateTimeString: unique symbol;
+}
+
+// export interface NonEmptyArrayBrand<T> extends Array<T> {
+export interface NonEmptyArrayBrand<T>{
+  readonly 'NonEmptyArray': unique symbol;
 }

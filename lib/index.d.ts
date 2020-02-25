@@ -10,6 +10,7 @@ declare const _exports: {
     positiveInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
     boolean: import("./types").NonObjectSpeck<boolean, boolean>;
     array: typeof array;
+    nonEmptyArray: typeof nonEmptyArray;
     literalEnum: typeof literalEnum;
     type: typeof type;
     partial: typeof partial;
@@ -44,6 +45,17 @@ declare function literal<TLiteralValue extends string | number | boolean>(value:
  * @returns {import('./types').ArrayType<TSpeck>}
  */
 declare function array<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<TSpeck["_ioTsType"]["_O"][], TSpeck["_ioTsType"]["_O"][]>;
+/**
+ * Array of specks where there must be at least one element in the array.
+ *
+ * Unfortunately fastcheck requires a maxLength when defining a minLength. It has been set to 5 initially,
+ * if this is not enough, this can be increased.
+ *
+ * @template {import('./types').Speck<any>} TSpeck
+ * @param {TSpeck} speck
+ * @returns {import('./types').NonEmptyBrandedArrayType<TSpeck>}
+ */
+declare function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<TSpeck["_ioTsType"]["_O"][], import("io-ts").Branded<TSpeck["_ioTsType"]["_O"][], import("./types").NonEmptyArrayBrand<TSpeck["_ioTsType"]["_O"]>>>;
 /**
  * Enum of string literals
  * TODO Typescript type of return object is too vague (returns string instead of 'abc' for example).
