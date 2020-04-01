@@ -11,6 +11,11 @@ declare const _exports: {
     nonNegativeInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
     positiveInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
     boolean: import("./types").NonObjectSpeck<boolean, boolean>;
+    unknownRecord: import("./types").ObjectSpeck<{
+        [k: string]: unknown;
+    }, {
+        [k: string]: unknown;
+    }>;
     array: typeof array;
     nonEmptyArray: typeof nonEmptyArray;
     literalEnum: typeof literalEnum;

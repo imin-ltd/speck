@@ -28,6 +28,12 @@ export type NonObjectSpeck<TUnderlyingType, TIoTsStaticType = TUnderlyingType> =
 export type ObjectSpeck<TUnderlyingType, TIoTsStaticType = TUnderlyingType> =
   BaseSpeck<TUnderlyingType, TIoTsStaticType> & {
     readonly _isObjectType: true;
+    /**
+     * If true, this object allows unknown fields.
+     * If false, this object only strictly allows from a finite set of fields.
+     * For more info, see validate()
+     */
+    readonly _allowsUnknown: boolean;
   };
 
 export type Speck<TUnderlyingType, TIoTsStaticType = TUnderlyingType> =
