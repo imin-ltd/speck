@@ -67,12 +67,12 @@ declare function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>
  * Enum of string literals
  * TODO Typescript type of return object is too vague (returns string instead of 'abc' for example).
  *
- * @template {string} TString
- * @template {[TString, TString, ...TString[]]} TStrings
+ * @template {string | number} TLiteralValue
+ * @template {[TLiteralValue, TLiteralValue, ...TLiteralValue[]]} TLiterals
  *
- * @param {TStrings} stringLiteralsArray
+ * @param {TLiterals} literalsArray
  */
-declare function literalEnum<TString extends string, TStrings extends [TString, TString, ...TString[]]>(stringLiteralsArray: TStrings): import("./types").NonObjectSpeck<TString, TString>;
+declare function literalEnum<TLiteralValue extends string | number, TLiterals extends [TLiteralValue, TLiteralValue, ...TLiteralValue[]]>(literalsArray: TLiterals): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
 /**
  * A record of Specks e.g.
  *
