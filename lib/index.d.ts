@@ -30,7 +30,6 @@ declare const _exports: {
     validate: typeof validate;
 };
 export = _exports;
-export type IoTsErrors = import("io-ts").Errors;
 /** # Simple types */
 /**
  * Literal type. An item with this type can only have one exact value.
@@ -261,7 +260,7 @@ declare function pickRequireds<TRecordOfSpecks extends Record<string, import("./
 declare function gen<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, overrides?: Partial<TUnderlyingType> | null): TUnderlyingType;
 declare class SpeckValidationErrors extends Error {
     /**
-     * @param {import('fp-ts/lib/Either').Left<IoTsErrors>} ioTsErrorResponse
+     * @param {import('fp-ts/lib/Either').Left<import('io-ts').Errors>} ioTsErrorResponse
      *   Response from running .decode from an io-ts type
      */
     constructor(ioTsErrorResponse: import("fp-ts/lib/Either").Left<import("io-ts").Errors>);
@@ -271,9 +270,9 @@ declare class SpeckValidationErrors extends Error {
      * for interacting with in a REPL or a debugger but will be overwhelming to
      * print to a string as it has a LOT of data.
      *
-     * @type {IoTsErrors}
+     * @type {import('io-ts').Errors}
      */
-    errors: IoTsErrors;
+    errors: import('io-ts').Errors;
     /**
      * Much more brief summary of each of the errors spotted. e.g.
      *
