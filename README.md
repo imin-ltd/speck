@@ -59,7 +59,8 @@ Runtime validation:
 { Error: SpeckValidationErrors
   // .. stack trace
   errors:
-   [ { value: 'not a number', context: [Array] }] } // i.e. there's a validation error. It is explained in detail in the context
+   [ { value: 'not a number', context: [Array] }], // i.e. there's a validation error. It is explained in detail in the context
+  summary: [ 'Expecting number at 1.price but instead got: "not a number"' ] } // shortened summary of the errors object
 ```
 
 Generation of random test data

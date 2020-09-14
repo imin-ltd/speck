@@ -30,6 +30,7 @@ declare const _exports: {
     validate: typeof validate;
 };
 export = _exports;
+export type IoTsErrors = import("io-ts").Errors;
 /** # Simple types */
 /**
  * Literal type. An item with this type can only have one exact value.
@@ -260,10 +261,33 @@ declare function pickRequireds<TRecordOfSpecks extends Record<string, import("./
 declare function gen<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, overrides?: Partial<TUnderlyingType> | null): TUnderlyingType;
 declare class SpeckValidationErrors extends Error {
     /**
-     * @param {import('io-ts').Errors} ioTsErrors
+     * @param {import('fp-ts/lib/Either').Left<IoTsErrors>} ioTsErrorResponse
+     *   Response from running .decode from an io-ts type
      */
-    constructor(ioTsErrors: import("io-ts").Errors);
-    errors: import("io-ts").Errors;
+    constructor(ioTsErrorResponse: import("fp-ts/lib/Either").Left<import("io-ts").Errors>);
+    /**
+     * Highly detailed record of all the validation errors that were spotted.
+     * This includes values for the expected types. This is a very handy record
+     * for interacting with in a REPL or a debugger but will be overwhelming to
+     * print to a string as it has a LOT of data.
+     *
+     * @type {IoTsErrors}
+     */
+    errors: IoTsErrors;
+    /**
+     * Much more brief summary of each of the errors spotted. e.g.
+     *
+     * ```js
+     * [ 'Expecting number at 1.price but instead got: "not a number"' ]
+     * ```
+     *
+     * Note that the path (`1.price` above) is a path within the speck, not a
+     * path within the data type itself. So `1` may refer to the 2nd item in
+     * an intersection.
+     *
+     * @type {string[]}
+     */
+    summary: string[];
 }
 /**
  * @template TUnderlyingType
