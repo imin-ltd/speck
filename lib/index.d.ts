@@ -19,6 +19,8 @@ declare const _exports: {
     array: typeof array;
     nonEmptyArray: typeof nonEmptyArray;
     literalEnum: typeof literalEnum;
+    literalStringEnum: typeof literalStringEnum;
+    literalNumberEnum: typeof literalNumberEnum;
     type: typeof type;
     partial: typeof partial;
     intersection: typeof intersection;
@@ -64,6 +66,7 @@ declare function array<TSpeck extends import("./types").Speck<any, any>>(speck: 
  */
 declare function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<TSpeck["_ioTsType"]["_O"][], import("io-ts").Branded<TSpeck["_ioTsType"]["_O"][], import("./types").NonEmptyArrayBrand<TSpeck["_ioTsType"]["_O"]>>>;
 /**
+ * @deprecated Use literalStringEnum or literalNumberEnum instead
  * Enum of string literals
  * TODO Typescript type of return object is too vague (returns string instead of 'abc' for example).
  *
@@ -73,6 +76,22 @@ declare function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>
  * @param {TLiterals} literalsArray
  */
 declare function literalEnum<TLiteralValue extends string | number, TLiterals extends [TLiteralValue, TLiteralValue, ...TLiteralValue[]]>(literalsArray: TLiterals): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
+/**
+ * Enum of string literals
+ *
+ * @template {string} TLiteralValue
+ *
+ * @param {[TLiteralValue, TLiteralValue, ...TLiteralValue[]]} literalsArray
+ */
+declare function literalStringEnum<TLiteralValue extends string>(literalsArray: [TLiteralValue, TLiteralValue, ...TLiteralValue[]]): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
+/**
+ * Enum of number literals
+ *
+ * @template {number} TLiteralValue
+ *
+ * @param {[TLiteralValue, TLiteralValue, ...TLiteralValue[]]} literalsArray
+ */
+declare function literalNumberEnum<TLiteralValue extends number>(literalsArray: [TLiteralValue, TLiteralValue, ...TLiteralValue[]]): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
 /**
  * A record of Specks e.g.
  *
