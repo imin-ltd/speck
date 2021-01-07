@@ -1,5 +1,7 @@
 # speck
 
+**This is in in ALPHA right now and may be subject to significant breaking changes until it stabilizes**
+
 A speck is a specification that can be used for:
 
 1. TypeScript type checking
