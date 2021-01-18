@@ -1,37 +1,3 @@
-declare const _exports: {
-    literal: typeof literal;
-    string: import("./types").NonObjectSpeck<string, string>;
-    urlString: import("./types").NonObjectSpeck<string, string>;
-    emailString: import("./types").NonObjectSpeck<string, string>;
-    isoDateTimeString: import("./types").NonObjectSpeck<string, import("io-ts").Branded<string, import("./types").IsoDateTimeStringBrand>>;
-    float: import("./types").NonObjectSpeck<number, number>;
-    nonNegativeFloat: import("./types").NonObjectSpeck<number, number>;
-    positiveFloat: import("./types").NonObjectSpeck<number, number>;
-    int: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
-    nonNegativeInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
-    positiveInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
-    boolean: import("./types").NonObjectSpeck<boolean, boolean>;
-    unknownRecord: import("./types").ObjectSpeck<{
-        [k: string]: unknown;
-    }, {
-        [k: string]: unknown;
-    }>;
-    array: typeof array;
-    nonEmptyArray: typeof nonEmptyArray;
-    literalEnum: typeof literalEnum;
-    literalStringEnum: typeof literalStringEnum;
-    literalNumberEnum: typeof literalNumberEnum;
-    type: typeof type;
-    partial: typeof partial;
-    intersection: typeof intersection;
-    unionObjects: typeof unionObjects;
-    union: typeof union;
-    pickRequireds: typeof pickRequireds;
-    gen: typeof gen;
-    SpeckValidationErrors: typeof SpeckValidationErrors;
-    validate: typeof validate;
-};
-export = _exports;
 /** # Simple types */
 /**
  * Literal type. An item with this type can only have one exact value.
@@ -44,7 +10,96 @@ export = _exports;
  *
  * @param {TLiteralValue} value
  */
-declare function literal<TLiteralValue extends string | number | boolean>(value: TLiteralValue): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
+export function literal<TLiteralValue extends string | number | boolean>(value: TLiteralValue): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
+/**
+ * - TypeScript: string
+ * - Runtime Validation: is it a string?
+ * - Generation: random string
+ */
+export const string: import("./types").NonObjectSpeck<string, string>;
+/**
+ * - TypeScript: string
+ * - Runtime Validation: is it a string? (TODO: also test that it is a URL)
+ * - Generation: random URL
+ */
+export const urlString: import("./types").NonObjectSpeck<string, string>;
+/**
+ * - TypeScript: string
+ * - Runtime Validation: is it a string? (TODO: also test that it is a email)
+ * - Generation: random email
+ */
+export const emailString: import("./types").NonObjectSpeck<string, string>;
+/**
+ * ISO-8601 Date time string e.g. 2001-01-01T01:23:45Z. Has seconds precision
+ * and a timezone designator
+ *
+ * - TypeScript: string
+ * - Runtime validation: is it an ISO-8601 datetime?
+ * - Generation: Random ISO-8601 datetime string
+ */
+export const isoDateTimeString: import("./types").NonObjectSpeck<string, import("io-ts").Branded<string, import("./types").IsoDateTimeStringBrand>>;
+/**
+ * Floating point number
+ *
+ * - TypeScript: number
+ * - Runtime validation: is it a number?
+ * - Generation: Random floating point number
+ *
+ * TODO: Make min/max digit (for generation) a parameter rather than fixed at
+ * -100 - 100
+ */
+export const float: import("./types").NonObjectSpeck<number, number>;
+/**
+ * A floating point number that is 0 or greater. You could use this for a
+ * price, for example
+ *
+ * - TypeScript: number
+ * - Runtime Validation: is it a number? (TODO: also test that it is positive)
+ * - Generation: Random positive floating point number
+ *
+ * TODO: Make max digit (for generation) a parameter rather than fixed at 100
+ */
+export const nonNegativeFloat: import("./types").NonObjectSpeck<number, number>;
+/** @deprecated Since v0.1.0. Replaced by the more accurately named nonNegativeFloat */
+export const positiveFloat: import("./types").NonObjectSpeck<number, number>;
+/**
+ * Integer
+ *
+ * - TypeScript: number
+ * - Runtime validation: is it an integer?
+ * - Generation: Random integer
+ *
+ * TODO: Make min/max digit (for generation) a parameter rather than fixed at
+ * -100 - 100
+ */
+export const int: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
+/**
+ * Integer whose value is 0 or greater. You could use this for an array index,
+ * for example.
+ *
+ * - TypeScript: number
+ * - Runtime validation: is it an integer? (TODO: also test that it is positive)
+ * - Generation: Random positive integer
+ *
+ * TODO: Make max digit (for generation) a parameter rather than fixed at 100
+ */
+export const nonNegativeInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
+/** @deprecated Since v0.1.0. Replaced by the more accurately named nonNegativeInt */
+export const positiveInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
+/**
+ * Boolean
+ *
+ * - TypeScript: boolean
+ * - Runtime validation: is it an boolean?
+ * - Generation: Random boolean
+ *
+ */
+export const boolean: import("./types").NonObjectSpeck<boolean, boolean>;
+export const unknownRecord: import("./types").ObjectSpeck<{
+    [k: string]: unknown;
+}, {
+    [k: string]: unknown;
+}>;
 /** # Higher order types */
 /**
  * Array of specks
@@ -53,7 +108,7 @@ declare function literal<TLiteralValue extends string | number | boolean>(value:
  * @param {TSpeck} speck
  * @returns {import('./types').ArrayType<TSpeck>}
  */
-declare function array<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<TSpeck["_ioTsType"]["_O"][], TSpeck["_ioTsType"]["_O"][]>;
+export function array<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<import("io-ts").OutputOf<TSpeck["_ioTsType"]>[], import("io-ts").OutputOf<TSpeck["_ioTsType"]>[]>;
 /**
  * Array of specks where there must be at least one element in the array.
  *
@@ -64,7 +119,7 @@ declare function array<TSpeck extends import("./types").Speck<any, any>>(speck: 
  * @param {TSpeck} speck
  * @returns {import('./types').NonEmptyBrandedArrayType<TSpeck>}
  */
-declare function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<TSpeck["_ioTsType"]["_O"][], import("io-ts").Branded<TSpeck["_ioTsType"]["_O"][], import("./types").NonEmptyArrayBrand<TSpeck["_ioTsType"]["_O"]>>>;
+export function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<import("io-ts").OutputOf<TSpeck["_ioTsType"]>[], import("io-ts").Branded<import("io-ts").OutputOf<TSpeck["_ioTsType"]>[], import("./types").NonEmptyArrayBrand<import("io-ts").OutputOf<TSpeck["_ioTsType"]>>>>;
 /**
  * @deprecated Use literalStringEnum or literalNumberEnum instead
  * Enum of string literals
@@ -75,7 +130,7 @@ declare function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>
  *
  * @param {TLiterals} literalsArray
  */
-declare function literalEnum<TLiteralValue extends string | number, TLiterals extends [TLiteralValue, TLiteralValue, ...TLiteralValue[]]>(literalsArray: TLiterals): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
+export function literalEnum<TLiteralValue extends string | number, TLiterals extends [TLiteralValue, TLiteralValue, ...TLiteralValue[]]>(literalsArray: TLiterals): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
 /**
  * Enum of string literals
  *
@@ -83,7 +138,7 @@ declare function literalEnum<TLiteralValue extends string | number, TLiterals ex
  *
  * @param {[TLiteralValue, TLiteralValue, ...TLiteralValue[]]} literalsArray
  */
-declare function literalStringEnum<TLiteralValue extends string>(literalsArray: [TLiteralValue, TLiteralValue, ...TLiteralValue[]]): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
+export function literalStringEnum<TLiteralValue extends string>(literalsArray: [TLiteralValue, TLiteralValue, ...TLiteralValue[]]): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
 /**
  * Enum of number literals
  *
@@ -91,7 +146,7 @@ declare function literalStringEnum<TLiteralValue extends string>(literalsArray: 
  *
  * @param {[TLiteralValue, TLiteralValue, ...TLiteralValue[]]} literalsArray
  */
-declare function literalNumberEnum<TLiteralValue extends number>(literalsArray: [TLiteralValue, TLiteralValue, ...TLiteralValue[]]): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
+export function literalNumberEnum<TLiteralValue extends number>(literalsArray: [TLiteralValue, TLiteralValue, ...TLiteralValue[]]): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
 /**
  * A record of Specks e.g.
  *
@@ -108,7 +163,7 @@ declare function literalNumberEnum<TLiteralValue extends number>(literalsArray: 
  * @param {TRecordOfSpecks} recordOfSpecks
  * @returns {import('./types').TypeType<TRecordOfSpecks>}
  */
-declare function type<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>>(recordOfSpecks: TRecordOfSpecks): import("./types").ObjectSpeck<{ [K in keyof TRecordOfSpecks]: TRecordOfSpecks[K]["_ioTsType"]["_O"]; }, { [K in keyof TRecordOfSpecks]: TRecordOfSpecks[K]["_ioTsType"]["_O"]; }>;
+export function type<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>>(recordOfSpecks: TRecordOfSpecks): import("./types").ObjectSpeck<{ [K in keyof TRecordOfSpecks]: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]>; }, { [K in keyof TRecordOfSpecks]: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]>; }>;
 /**
  * A record of Specks that are optional e.g.
  *
@@ -119,11 +174,15 @@ declare function type<TRecordOfSpecks extends Record<string, import("./types").S
  * });
  * ```
  *
+ * Objects that match this speck can have these fields included or not. If they are included,
+ * they must either match the specified speck, or be null or undefined.
+ * In this way, `partial()` considers `null`, `undefined` and the absence of a field to be equivalent.
+ *
  * @template {import('./types')._BaseRecordOfSpecks} TRecordOfSpecks
  * @param {TRecordOfSpecks} recordOfSpecks
  * @returns {import('./types').PartialType<TRecordOfSpecks>}
  */
-declare function partial<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>>(recordOfSpecks: TRecordOfSpecks): import("./types").ObjectSpeck<{ [K in keyof TRecordOfSpecks]?: TRecordOfSpecks[K]["_ioTsType"]["_O"] | undefined; }, { [K in keyof TRecordOfSpecks]?: TRecordOfSpecks[K]["_ioTsType"]["_O"] | undefined; }>;
+export function partial<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>>(recordOfSpecks: TRecordOfSpecks): import("./types").ObjectSpeck<{ [K in keyof TRecordOfSpecks]?: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]> | null | undefined; }, { [K in keyof TRecordOfSpecks]?: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]> | null | undefined; }>;
 /**
  * _TODO document_
  *
@@ -132,7 +191,7 @@ declare function partial<TRecordOfSpecks extends Record<string, import("./types"
  * @param {[TA, TB]} specks
  * @returns {import('./types').IntersectionType<[TA, TB]>}
  */
-declare function intersection<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").ObjectSpeck<TA["_ioTsType"]["_O"] & TB["_ioTsType"]["_O"], TA["_ioTsType"]["_O"] & TB["_ioTsType"]["_O"]>;
+export function intersection<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").ObjectSpeck<import("io-ts").OutputOf<TA["_ioTsType"]> & import("io-ts").OutputOf<TB["_ioTsType"]>, import("io-ts").OutputOf<TA["_ioTsType"]> & import("io-ts").OutputOf<TB["_ioTsType"]>>;
 /**
  * A speck that could be one thing or another. Equivalent to `|` in TypeScript
  * (https://www.typescriptlang.org/docs/handbook/advanced-types.html#union-types).
@@ -187,7 +246,7 @@ declare function intersection<TA extends import("./types").ObjectSpeck<any, any>
  * @param {[TA, TB]} specks
  * @returns {import('./types').UnionObjectsType<[TA, TB]>}
  */
-declare function unionObjects<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").ObjectSpeck<TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"], TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"]>;
+export function unionObjects<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").ObjectSpeck<import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>, import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>>;
 /**
  * A speck that could be one type or another. Equivalent to `|` in TypeScript
  * (https://www.typescriptlang.org/docs/handbook/advanced-types.html#union-types).
@@ -233,7 +292,7 @@ declare function unionObjects<TA extends import("./types").ObjectSpeck<any, any>
  * @param {[TA, TB]} specks
  * @returns {import('./types').UnionType<[TA, TB]>}
  */
-declare function union<TA extends import("./types").Speck<any, any>, TB extends import("./types").Speck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").NonObjectSpeck<TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"], TA["_ioTsType"]["_O"] | TB["_ioTsType"]["_O"]>;
+export function union<TA extends import("./types").Speck<any, any>, TB extends import("./types").Speck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").NonObjectSpeck<import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>, import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>>;
 /**
  * From a record of specks, pick which ones will be required fields and which
  * will be optional. e.g.
@@ -258,7 +317,7 @@ declare function union<TA extends import("./types").Speck<any, any>, TB extends 
  *   import('./types').PartialType<Omit<TRecordOfSpecks, TRequiredFields>>
  * ]>}
  */
-declare function pickRequireds<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>, TRequiredFields extends keyof TRecordOfSpecks>(recordOfSpecks: TRecordOfSpecks, requiredFields: TRequiredFields[]): import("./types").ObjectSpeck<{ [K in keyof Pick<TRecordOfSpecks, TRequiredFields>]: Pick<TRecordOfSpecks, TRequiredFields>[K]["_ioTsType"]["_O"]; } & { [K_1 in keyof Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>]?: Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>[K_1]["_ioTsType"]["_O"] | undefined; }, { [K in keyof Pick<TRecordOfSpecks, TRequiredFields>]: Pick<TRecordOfSpecks, TRequiredFields>[K]["_ioTsType"]["_O"]; } & { [K_1 in keyof Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>]?: Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>[K_1]["_ioTsType"]["_O"] | undefined; }>;
+export function pickRequireds<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>, TRequiredFields extends keyof TRecordOfSpecks>(recordOfSpecks: TRecordOfSpecks, requiredFields: TRequiredFields[]): import("./types").ObjectSpeck<{ [K in keyof Pick<TRecordOfSpecks, TRequiredFields>]: import("io-ts").OutputOf<Pick<TRecordOfSpecks, TRequiredFields>[K]["_ioTsType"]>; } & { [K_1 in keyof Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>]?: import("io-ts").OutputOf<Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>[K_1]["_ioTsType"]> | null | undefined; }, { [K in keyof Pick<TRecordOfSpecks, TRequiredFields>]: import("io-ts").OutputOf<Pick<TRecordOfSpecks, TRequiredFields>[K]["_ioTsType"]>; } & { [K_1 in keyof Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>]?: import("io-ts").OutputOf<Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>[K_1]["_ioTsType"]> | null | undefined; }>;
 /** API functions */
 /**
  * Generate test data for a speck
@@ -276,13 +335,13 @@ declare function pickRequireds<TRecordOfSpecks extends Record<string, import("./
  * @param {Partial<TUnderlyingType> | null} overrides
  * @return {TUnderlyingType}
  */
-declare function gen<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, overrides?: Partial<TUnderlyingType> | null): TUnderlyingType;
-declare class SpeckValidationErrors extends Error {
+export function gen<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, overrides?: Partial<TUnderlyingType> | null): TUnderlyingType;
+export class SpeckValidationErrors extends Error {
     /**
      * @param {import('fp-ts/lib/Either').Left<import('io-ts').Errors>} ioTsErrorResponse
      *   Response from running .decode from an io-ts type
      */
-    constructor(ioTsErrorResponse: import("fp-ts/lib/Either").Left<import("io-ts").Errors>);
+    constructor(ioTsErrorResponse: import('fp-ts/lib/Either').Left<import('io-ts').Errors>);
     /**
      * Highly detailed record of all the validation errors that were spotted.
      * This includes values for the expected types. This is a very handy record
@@ -330,6 +389,6 @@ declare class SpeckValidationErrors extends Error {
  *   ```
  * @return {TUnderlyingType | SpeckValidationErrors}
  */
-declare function validate<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown, { skipStrict }?: {
-    skipStrict?: boolean;
+export function validate<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown, { skipStrict }?: {
+    skipStrict: boolean | undefined;
 }): SpeckValidationErrors | TUnderlyingType;
