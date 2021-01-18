@@ -379,3 +379,12 @@ export class SpeckValidationErrors extends Error {
 export function validate<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown, { skipStrict }?: {
     skipStrict: boolean | undefined;
 }): SpeckValidationErrors | TUnderlyingType;
+/**
+ * It's like `s.validate(..)` but it just always throws the error. For vital assertions or quick experimentation.
+ *
+ * @template TUnderlyingType
+ * @param {import('./types').Speck<TUnderlyingType>} speck
+ * @param {unknown} item
+ * @returns {TUnderlyingType}
+ */
+export function assert<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown): TUnderlyingType;
