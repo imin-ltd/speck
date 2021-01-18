@@ -342,29 +342,16 @@ export class SpeckValidationErrors extends Error {
      *   Response from running .decode from an io-ts type
      */
     constructor(ioTsErrorResponse: import('fp-ts/lib/Either').Left<import('io-ts').Errors>);
+    summary: string[];
     /**
      * Highly detailed record of all the validation errors that were spotted.
      * This includes values for the expected types. This is a very handy record
      * for interacting with in a REPL or a debugger but will be overwhelming to
      * print to a string as it has a LOT of data.
      *
-     * @type {import('io-ts').Errors}
+     * @type {import('io-ts').Errors | null | undefined}
      */
-    errors: import('io-ts').Errors;
-    /**
-     * Much more brief summary of each of the errors spotted. e.g.
-     *
-     * ```js
-     * [ 'Expecting number at 1.price but instead got: "not a number"' ]
-     * ```
-     *
-     * Note that the path (`1.price` above) is a path within the speck, not a
-     * path within the data type itself. So `1` may refer to the 2nd item in
-     * an intersection.
-     *
-     * @type {string[]}
-     */
-    summary: string[];
+    errors: import('io-ts').Errors | null | undefined;
 }
 /**
  * @template TUnderlyingType
