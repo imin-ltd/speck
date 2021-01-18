@@ -78,7 +78,7 @@ export type TypeType<TRecordOfSpecks extends _BaseRecordOfSpecks> = ObjectSpeck<
 }>;
 
 export type PartialType<TRecordOfSpecks extends _BaseRecordOfSpecks> = ObjectSpeck<{
-  [K in keyof TRecordOfSpecks]?: TypeOf<TRecordOfSpecks[K]>;
+  [K in keyof TRecordOfSpecks]?: TypeOf<TRecordOfSpecks[K]> | null | undefined;
 }>;
 
 export type IntersectionType<TObjectSpecks extends [ObjectSpeck<any>, ObjectSpeck<any>]> =
