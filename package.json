@@ -1,6 +1,6 @@
 {
   "name": "@imin/speck",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Specification for TypeScript types, Run-time validation & test-data generation",
   "main": "lib/index.js",
   "directories": {
