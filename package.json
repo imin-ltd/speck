@@ -9,7 +9,7 @@
   "scripts": {
     "test": "npm run generate-d-ts",
     "build": "npm run generate-d-ts",
-    "generate-d-ts": "rm lib/index.d.ts lib/ioTsBrands.d.ts && tsc"
+    "generate-d-ts": "rm lib/index.d.ts lib/ioTsBrands.d.ts lib/ioTsTypes.d.ts && tsc"
   },
   "repository": {
     "type": "git",
