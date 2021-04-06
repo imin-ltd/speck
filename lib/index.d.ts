@@ -95,6 +95,14 @@ export const positiveInt: import("./types").NonObjectSpeck<number, import("io-ts
  *
  */
 export const boolean: import("./types").NonObjectSpeck<boolean, boolean>;
+/**
+ * JS Date (e.g. `new Date()`)
+ *
+ * - TypeScript: Date
+ * - Runtime validation: instanceof Date
+ * - Generation: Random Date
+ */
+export const jsDate: import("./types").NonObjectSpeck<Date, Date>;
 export const unknownRecord: import("./types").ObjectSpeck<{
     [k: string]: unknown;
 }, {
