@@ -69,6 +69,9 @@ export type ArrayType<TSpeck extends Speck<any>> = NonObjectSpeck<TypeOf<TSpeck>
 
 export type NonEmptyBrandedArrayType<TSpeck extends Speck<any>> = NonObjectSpeck<TypeOf<TSpeck>[], t.Branded<TypeOf<TSpeck>[], NonEmptyArrayBrand<TypeOf<TSpeck>>>>;
 
+export type RecordType<TKeySpeck extends NonObjectSpeck<string>, TValueSpeck extends Speck<any>>
+  = ObjectSpeck<Record<TypeOf<TKeySpeck>, TypeOf<TValueSpeck>>>;
+
 /**
  * The name is strange but it is consistent with the naming scheme. This is
  * the TypeScript "type" of values returned by the "type" function.
