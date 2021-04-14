@@ -156,6 +156,18 @@ export function literalStringEnum<TLiteralValue extends string>(literalsArray: [
  */
 export function literalNumberEnum<TLiteralValue extends number>(literalsArray: [TLiteralValue, TLiteralValue, ...TLiteralValue[]]): import("./types").NonObjectSpeck<TLiteralValue, TLiteralValue>;
 /**
+ * The speck equivalent of the TypeScript `Record<..>` type.
+ *
+ * e.g. `s.record(s.string, s.float)` would have TS type `Record<string, number>`.
+ *
+ * @template {typeof string} TKeySpeck
+ * @template {import('./types').Speck<any>} TValueSpeck
+ * @param {TKeySpeck} keySpeck
+ * @param {TValueSpeck} valueSpeck
+ * @returns {import('./types').RecordType<TKeySpeck, TValueSpeck>}
+ */
+export function record<TKeySpeck extends import("./types").NonObjectSpeck<string, string>, TValueSpeck extends import("./types").Speck<any, any>>(keySpeck: TKeySpeck, valueSpeck: TValueSpeck): import("./types").ObjectSpeck<Record<import("io-ts").OutputOf<TKeySpeck["_ioTsType"]>, import("io-ts").OutputOf<TValueSpeck["_ioTsType"]>>, Record<import("io-ts").OutputOf<TKeySpeck["_ioTsType"]>, import("io-ts").OutputOf<TValueSpeck["_ioTsType"]>>>;
+/**
  * A record of Specks e.g.
  *
  * ```js
