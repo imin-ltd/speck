@@ -103,6 +103,10 @@ export const boolean: import("./types").NonObjectSpeck<boolean, boolean>;
  * - Generation: Random Date
  */
 export const jsDate: import("./types").NonObjectSpeck<Date, Date>;
+/**
+ * `null` or `undefined`
+ */
+export const nil: import("./types").NonObjectSpeck<null | undefined, null | undefined>;
 export const unknownRecord: import("./types").ObjectSpeck<{
     [k: string]: unknown;
 }, {
