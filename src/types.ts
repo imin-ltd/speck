@@ -1,7 +1,7 @@
 import * as t from 'io-ts';
 import * as fc from 'fast-check';
 
-/** # The King */
+/** # Base Speck types */
 
 /**
  * @template TUnderlyingType The TypeScript type of this specification.

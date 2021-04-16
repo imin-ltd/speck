@@ -1,16 +1,20 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "checkJs": true,
+    // "allowJs": true,
+    // "checkJs": true,
     "declaration": true,
     "downlevelIteration": true,
-    "emitDeclarationOnly": true,
+    "module": "CommonJS",
+    "target": "es2015",
+    // "emitDeclarationOnly": true,
     "lib": ["es2017"],
     "removeComments": false,
-    "strict": true
+    "strict": true,
+    "outDir": "./lib"
   },
   "include": [
-    "lib/**/*.ts",
-    "lib/**/*.js"
+    "src/**/*.ts"
+    // "lib/**/*.ts",
+    // "lib/**/*.js"
   ]
 }
