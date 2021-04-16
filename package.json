@@ -7,9 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run generate-d-ts",
-    "build": "npm run generate-d-ts",
-    "generate-d-ts": "rm lib/index.d.ts lib/ioTsBrands.d.ts lib/ioTsTypes.d.ts && tsc"
+    "test": "tsc",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,7 @@
   "homepage": "https://github.com/imin-ltd/speck#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build && git add lib/index.d.ts lib/ioTsBrands.d.ts"
+      "pre-commit": "npm run build && git add lib"
     }
   },
   "devDependencies": {
