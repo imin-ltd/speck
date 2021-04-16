@@ -1,1 +1,2 @@
-export const ioTsJsDate: import("io-ts").Type<Date, Date, unknown>;
+export const ioTsJsDate: t.Type<Date, Date, unknown>;
+import t = require("io-ts");

@@ -37,7 +37,7 @@ export const emailString: import("./types").NonObjectSpeck<string, string>;
  * - Runtime validation: is it an ISO-8601 datetime?
  * - Generation: Random ISO-8601 datetime string
  */
-export const isoDateTimeString: import("./types").NonObjectSpeck<string, import("io-ts").Branded<string, import("./types").IsoDateTimeStringBrand>>;
+export const isoDateTimeString: import("./types").NonObjectSpeck<string, t.Branded<string, import("./types").IsoDateTimeStringBrand>>;
 /**
  * Floating point number
  *
@@ -72,7 +72,7 @@ export const positiveFloat: import("./types").NonObjectSpeck<number, number>;
  * TODO: Make min/max digit (for generation) a parameter rather than fixed at
  * -100 - 100
  */
-export const int: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
+export const int: import("./types").NonObjectSpeck<number, t.Branded<number, t.IntBrand>>;
 /**
  * Integer whose value is 0 or greater. You could use this for an array index,
  * for example.
@@ -83,9 +83,9 @@ export const int: import("./types").NonObjectSpeck<number, import("io-ts").Brand
  *
  * TODO: Make max digit (for generation) a parameter rather than fixed at 100
  */
-export const nonNegativeInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
+export const nonNegativeInt: import("./types").NonObjectSpeck<number, t.Branded<number, t.IntBrand>>;
 /** @deprecated Since v0.1.0. Replaced by the more accurately named nonNegativeInt */
-export const positiveInt: import("./types").NonObjectSpeck<number, import("io-ts").Branded<number, import("io-ts").IntBrand>>;
+export const positiveInt: import("./types").NonObjectSpeck<number, t.Branded<number, t.IntBrand>>;
 /**
  * Boolean
  *
@@ -120,7 +120,7 @@ export const unknownRecord: import("./types").ObjectSpeck<{
  * @param {TSpeck} speck
  * @returns {import('./types').ArrayType<TSpeck>}
  */
-export function array<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<import("io-ts").OutputOf<TSpeck["_ioTsType"]>[], import("io-ts").OutputOf<TSpeck["_ioTsType"]>[]>;
+export function array<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").ArrayType<TSpeck>;
 /**
  * Array of specks where there must be at least one element in the array.
  *
@@ -131,7 +131,7 @@ export function array<TSpeck extends import("./types").Speck<any, any>>(speck: T
  * @param {TSpeck} speck
  * @returns {import('./types').NonEmptyBrandedArrayType<TSpeck>}
  */
-export function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonObjectSpeck<import("io-ts").OutputOf<TSpeck["_ioTsType"]>[], import("io-ts").Branded<import("io-ts").OutputOf<TSpeck["_ioTsType"]>[], import("./types").NonEmptyArrayBrand<import("io-ts").OutputOf<TSpeck["_ioTsType"]>>>>;
+export function nonEmptyArray<TSpeck extends import("./types").Speck<any, any>>(speck: TSpeck): import("./types").NonEmptyBrandedArrayType<TSpeck>;
 /**
  * @deprecated Use literalStringEnum or literalNumberEnum instead
  * Enum of string literals
@@ -170,7 +170,7 @@ export function literalNumberEnum<TLiteralValue extends number>(literalsArray: [
  * @param {TValueSpeck} valueSpeck
  * @returns {import('./types').RecordType<TKeySpeck, TValueSpeck>}
  */
-export function record<TKeySpeck extends import("./types").NonObjectSpeck<string, string>, TValueSpeck extends import("./types").Speck<any, any>>(keySpeck: TKeySpeck, valueSpeck: TValueSpeck): import("./types").ObjectSpeck<Record<import("io-ts").OutputOf<TKeySpeck["_ioTsType"]>, import("io-ts").OutputOf<TValueSpeck["_ioTsType"]>>, Record<import("io-ts").OutputOf<TKeySpeck["_ioTsType"]>, import("io-ts").OutputOf<TValueSpeck["_ioTsType"]>>>;
+export function record<TKeySpeck extends import("./types").NonObjectSpeck<string, string>, TValueSpeck extends import("./types").Speck<any, any>>(keySpeck: TKeySpeck, valueSpeck: TValueSpeck): import("./types").RecordType<TKeySpeck, TValueSpeck>;
 /**
  * A record of Specks e.g.
  *
@@ -187,7 +187,7 @@ export function record<TKeySpeck extends import("./types").NonObjectSpeck<string
  * @param {TRecordOfSpecks} recordOfSpecks
  * @returns {import('./types').TypeType<TRecordOfSpecks>}
  */
-export function type<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>>(recordOfSpecks: TRecordOfSpecks): import("./types").ObjectSpeck<{ [K in keyof TRecordOfSpecks]: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]>; }, { [K in keyof TRecordOfSpecks]: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]>; }>;
+export function type<TRecordOfSpecks extends import("./types")._BaseRecordOfSpecks>(recordOfSpecks: TRecordOfSpecks): import("./types").TypeType<TRecordOfSpecks>;
 /**
  * A record of Specks that are optional e.g.
  *
@@ -206,7 +206,7 @@ export function type<TRecordOfSpecks extends Record<string, import("./types").Sp
  * @param {TRecordOfSpecks} recordOfSpecks
  * @returns {import('./types').PartialType<TRecordOfSpecks>}
  */
-export function partial<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>>(recordOfSpecks: TRecordOfSpecks): import("./types").ObjectSpeck<{ [K in keyof TRecordOfSpecks]?: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]> | null | undefined; }, { [K in keyof TRecordOfSpecks]?: import("io-ts").OutputOf<TRecordOfSpecks[K]["_ioTsType"]> | null | undefined; }>;
+export function partial<TRecordOfSpecks extends import("./types")._BaseRecordOfSpecks>(recordOfSpecks: TRecordOfSpecks): import("./types").PartialType<TRecordOfSpecks>;
 /**
  * _TODO document_
  *
@@ -215,7 +215,7 @@ export function partial<TRecordOfSpecks extends Record<string, import("./types")
  * @param {[TA, TB]} specks
  * @returns {import('./types').IntersectionType<[TA, TB]>}
  */
-export function intersection<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").ObjectSpeck<import("io-ts").OutputOf<TA["_ioTsType"]> & import("io-ts").OutputOf<TB["_ioTsType"]>, import("io-ts").OutputOf<TA["_ioTsType"]> & import("io-ts").OutputOf<TB["_ioTsType"]>>;
+export function intersection<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").IntersectionType<[TA, TB]>;
 /**
  * A speck that could be one thing or another. Equivalent to `|` in TypeScript
  * (https://www.typescriptlang.org/docs/handbook/advanced-types.html#union-types).
@@ -270,7 +270,7 @@ export function intersection<TA extends import("./types").ObjectSpeck<any, any>,
  * @param {[TA, TB]} specks
  * @returns {import('./types').UnionObjectsType<[TA, TB]>}
  */
-export function unionObjects<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").ObjectSpeck<import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>, import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>>;
+export function unionObjects<TA extends import("./types").ObjectSpeck<any, any>, TB extends import("./types").ObjectSpeck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").UnionObjectsType<[TA, TB]>;
 /**
  * A speck that could be one type or another. Equivalent to `|` in TypeScript
  * (https://www.typescriptlang.org/docs/handbook/advanced-types.html#union-types).
@@ -316,7 +316,7 @@ export function unionObjects<TA extends import("./types").ObjectSpeck<any, any>,
  * @param {[TA, TB]} specks
  * @returns {import('./types').UnionType<[TA, TB]>}
  */
-export function union<TA extends import("./types").Speck<any, any>, TB extends import("./types").Speck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").NonObjectSpeck<import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>, import("io-ts").OutputOf<TA["_ioTsType"]> | import("io-ts").OutputOf<TB["_ioTsType"]>>;
+export function union<TA extends import("./types").Speck<any, any>, TB extends import("./types").Speck<any, any>>([speckA, speckB]: [TA, TB]): import("./types").UnionType<[TA, TB]>;
 /**
  * From a record of specks, pick which ones will be required fields and which
  * will be optional. e.g.
@@ -341,7 +341,7 @@ export function union<TA extends import("./types").Speck<any, any>, TB extends i
  *   import('./types').PartialType<Omit<TRecordOfSpecks, TRequiredFields>>
  * ]>}
  */
-export function pickRequireds<TRecordOfSpecks extends Record<string, import("./types").Speck<any, any>>, TRequiredFields extends keyof TRecordOfSpecks>(recordOfSpecks: TRecordOfSpecks, requiredFields: TRequiredFields[]): import("./types").ObjectSpeck<{ [K in keyof Pick<TRecordOfSpecks, TRequiredFields>]: import("io-ts").OutputOf<Pick<TRecordOfSpecks, TRequiredFields>[K]["_ioTsType"]>; } & { [K_1 in keyof Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>]?: import("io-ts").OutputOf<Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>[K_1]["_ioTsType"]> | null | undefined; }, { [K in keyof Pick<TRecordOfSpecks, TRequiredFields>]: import("io-ts").OutputOf<Pick<TRecordOfSpecks, TRequiredFields>[K]["_ioTsType"]>; } & { [K_1 in keyof Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>]?: import("io-ts").OutputOf<Pick<TRecordOfSpecks, Exclude<keyof TRecordOfSpecks, TRequiredFields>>[K_1]["_ioTsType"]> | null | undefined; }>;
+export function pickRequireds<TRecordOfSpecks extends import("./types")._BaseRecordOfSpecks, TRequiredFields extends keyof TRecordOfSpecks>(recordOfSpecks: TRecordOfSpecks, requiredFields: TRequiredFields[]): import("./types").IntersectionType<[import("./types").TypeType<Pick<TRecordOfSpecks, TRequiredFields>>, import("./types").PartialType<Omit<TRecordOfSpecks, TRequiredFields>>]>;
 /** API functions */
 /**
  * Generate test data for a speck
@@ -401,7 +401,7 @@ export class SpeckValidationErrors extends Error {
  * @return {TUnderlyingType | SpeckValidationErrors}
  */
 export function validate<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown, { skipStrict }?: {
-    skipStrict: boolean | undefined;
+    skipStrict?: boolean | undefined;
 }): SpeckValidationErrors | TUnderlyingType;
 /**
  * It's like `s.validate(..)` but it just always throws the error. For vital assertions or quick experimentation.
@@ -412,3 +412,4 @@ export function validate<TUnderlyingType>(speck: import("./types").Speck<TUnderl
  * @returns {TUnderlyingType}
  */
 export function assert<TUnderlyingType>(speck: import("./types").Speck<TUnderlyingType, TUnderlyingType>, item: unknown): TUnderlyingType;
+import t = require("io-ts");
