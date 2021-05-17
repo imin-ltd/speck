@@ -1,8 +1,7 @@
-export type IsoDateTimeStringBrand = import("./types").IsoDateTimeStringBrand;
-export type Mixed = import("io-ts").Mixed;
-export const IsoDateTimeString: import("io-ts").BrandC<import("io-ts").StringC, import("./types").IsoDateTimeStringBrand>;
 /**
- * @template {Mixed} TIoTsType
- * @param {TIoTsType} type
+ * Custom [io-ts Branded types](https://github.com/gcanti/io-ts#branded-types--refinements)
  */
-export function nonEmptyArray<TIoTsType extends import("io-ts").Mixed>(type: TIoTsType): import("io-ts").BrandC<import("io-ts").ArrayC<TIoTsType>, import("./types").NonEmptyArrayBrand<import("io-ts").TypeOf<TIoTsType>>>;
+import * as t from 'io-ts';
+import { IsoDateTimeStringBrand, NonEmptyArrayBrand } from './types';
+export declare const IsoDateTimeString: t.BrandC<t.StringC, IsoDateTimeStringBrand>;
+export declare const nonEmptyArray: <TIoTsType extends t.Mixed>(type: TIoTsType) => t.BrandC<t.ArrayC<TIoTsType>, NonEmptyArrayBrand<t.TypeOf<TIoTsType>>>;
