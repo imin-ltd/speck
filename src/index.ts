@@ -213,7 +213,7 @@ export function literalNumberEnum<TLiteralValue extends number>(
   return createNonObjectSpeck(ioTsType, fastCheckArbitrary);
 }
 
-const unknownRecord = createObjectSpeck(
+export const unknownRecord = createObjectSpeck(
   t.UnknownRecord,
   // `fc.object()` returns an `Arbitrary<object>` type. TypeScript's handling
   // of the `object` type is rather odd. In some circumstances, it's identical
