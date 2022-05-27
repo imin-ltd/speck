@@ -1,15 +1,16 @@
 {
   "name": "@imin/speck",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Specification for TypeScript types, Run-time validation & test-data generation",
   "main": "lib/index.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "test": "npm run generate-d-ts",
-    "build": "npm run generate-d-ts",
-    "generate-d-ts": "rm lib/index.d.ts lib/ioTsBrands.d.ts && tsc"
+    "prepare": "husky install",
+    "run-tests": "npx ts-mocha tests/**/*.ts",
+    "test": "tsc && npm run run-tests",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -21,15 +22,15 @@
     "url": "https://github.com/imin-ltd/speck/issues"
   },
   "homepage": "https://github.com/imin-ltd/speck#readme",
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run build && git add lib/index.d.ts lib/ioTsBrands.d.ts"
-    }
-  },
   "devDependencies": {
+    "@types/chai": "^4.2.16",
     "@types/lodash": "^4.14.149",
-    "husky": "^4.2.1",
-    "typescript": "^3.7.5"
+    "@types/mocha": "^9.1.0",
+    "chai": "^4.3.4",
+    "husky": "^7.0.4",
+    "mocha": "^9.2.0",
+    "ts-mocha": "^9.0.2",
+    "typescript": "^4.2.4"
   },
   "engines": {
     "node": "14.19.1",
@@ -40,8 +41,7 @@
     "fp-ts": "^2.4.1",
     "io-ts": "^2.0.6",
     "io-ts-reporters": "^1.2.2",
-    "lodash": "^4.17.15",
-    "moment": "^2.24.0",
-    "npm": "^8.11.0"
+    "lodash": "^4.17.21",
+    "moment": "^2.24.0"
   }
 }

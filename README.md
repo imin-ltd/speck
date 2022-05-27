@@ -1,5 +1,7 @@
 # speck
 
+**This is in in ALPHA right now and may be subject to significant breaking changes until it stabilizes**
+
 A speck is a specification that can be used for:
 
 1. TypeScript type checking
@@ -76,6 +78,12 @@ Generation of random test data
   name: 'Offer #1',
   price: 39.99195694923401 }
 ```
+
+## Usage
+
+Env vars can be used to control speck's behaviour. All are optional:
+
+* `SPECK_ERROR_EXCLUDE_DETAIL`: If set to `true`, Speck Validation Errors will only include summaries - rather than very detailed error objects.
 
 ## Development
 
