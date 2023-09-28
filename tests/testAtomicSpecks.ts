@@ -57,6 +57,15 @@ describe('testAtomicSpecks', () => {
       invalidValue: Symbol('im-not-a-date'),
     });
   });
+  describe('s.bigInt', () => {
+    itTestAtomicSpeck({
+      speckName: 'bigInt',
+      speck: s.bigInt,
+      assertIsCorrectTypeFn: (chaiAssertion) => chaiAssertion.to.satisfy((value) => typeof value === 'bigint'),
+      validValue: 1981989823749832479283744n,
+      invalidValue: 1981989823749832479283744,
+    })
+  });
   describe('s.nil', () => {
     itTestAtomicSpeck({
       speckName: 'nil',
