@@ -10,3 +10,10 @@ export const ioTsJsDate = new t.Type(
   (input, context) => input instanceof Date ? t.success(input) : t.failure(input, context),
   t.identity,
 );
+
+export const ioToBigInt = new t.Type(
+  'BigInt',
+  (input: unknown): input is bigint => typeof input === 'bigint',
+  (input, context) => typeof input === 'bigint' ? t.success(input) : t.failure(input, context),
+  t.identity,
+);
