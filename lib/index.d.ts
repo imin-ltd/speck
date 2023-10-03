@@ -103,6 +103,14 @@ export declare const boolean: NonObjectSpeck<boolean, boolean>;
  */
 export declare const jsDate: NonObjectSpeck<Date, Date>;
 /**
+ * BigInt (e.g. `123n`)
+ *
+ * - TypeScript: bigint
+ * - Runtime validation: typeof x === 'bigint'
+ * - Generation: Random BigInt
+ */
+export declare const bigInt: NonObjectSpeck<bigint, bigint>;
+/**
  * `null` or `undefined`
  */
 export declare const nil: NonObjectSpeck<null | undefined, null | undefined>;

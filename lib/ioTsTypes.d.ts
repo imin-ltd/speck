@@ -4,3 +4,4 @@
  */
 import * as t from 'io-ts';
 export declare const ioTsJsDate: t.Type<Date, Date, unknown>;
+export declare const ioTsBigInt: t.Type<bigint, bigint, unknown>;
