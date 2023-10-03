@@ -22,7 +22,7 @@ import {
   IsoDateTimeString,
   nonEmptyArray as nonEmptyArrayBrand,
 } from './ioTsBrands';
-import { ioToBigInt, ioTsJsDate } from './ioTsTypes';
+import { ioTsBigInt, ioTsJsDate } from './ioTsTypes';
 // Export types from ./types
 export { TypeOf, Speck } from './types';
 
@@ -182,7 +182,7 @@ export const jsDate = createNonObjectSpeck(ioTsJsDate, fc.date());
  * - Runtime validation: typeof x === 'bigint'
  * - Generation: Random BigInt
  */
-export const bigInt = createNonObjectSpeck(ioToBigInt, fc.bigInt());
+export const bigInt = createNonObjectSpeck(ioTsBigInt, fc.bigInt());
 
 /**
  * `null` or `undefined`
