@@ -490,10 +490,7 @@ export function gen<TUnderlyingType>(
 ): TUnderlyingType {
   const sampleResult = fc.sample(speck._fastCheckArbitrary, 1)[0];
   if (speck._isObjectType && overrides) {
-    // ! This mutates `sampleResult`
-    // This is fine given that this is the end of the function and so there's
-    // no chance of confusion about the value of `sampleResult`
-    return Object.assign(sampleResult, overrides);
+    return Object.assign({}, sampleResult, overrides);
   }
   return sampleResult;
 }
