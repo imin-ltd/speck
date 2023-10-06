@@ -7,10 +7,11 @@
     "lib": "lib"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "npm run snyk-protect && husky install",
     "run-tests": "npx ts-mocha tests/**/*.ts",
     "test": "tsc && npm run run-tests",
-    "build": "tsc"
+    "build": "tsc",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -36,11 +37,13 @@
     "node": ">=10.16.0"
   },
   "dependencies": {
+    "@snyk/protect": "^1.1232.0",
     "fast-check": "^1.21.0",
     "fp-ts": "^2.4.1",
     "io-ts": "^2.0.6",
     "io-ts-reporters": "^1.2.2",
     "lodash": "^4.17.21",
-    "moment": "^2.24.0"
+    "moment": "^2.29.4",
+    "snyk": "^1.1232.0"
   }
 }
