@@ -125,6 +125,7 @@ export declare function literalNumberEnum<TLiteralValue extends number>(literals
 export declare const unknownRecord: ObjectSpeck<{
     [k: string]: unknown;
 }>;
+export declare const unknown: NonObjectSpeck<unknown, unknown>;
 /** # Higher order types */
 /**
  * Array of specks

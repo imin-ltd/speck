@@ -234,6 +234,8 @@ export const unknownRecord = createObjectSpeck(
   fc.object() as fc.Arbitrary<{ [k: string]: unknown }>,
   true);
 
+export const unknown = createNonObjectSpeck(t.unknown, fc.anything())
+
 /** # Higher order types */
 
 /**
