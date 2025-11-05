@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "prepare": "npm run snyk-protect && husky install",
+    "prepare": "npm run snyk-protect",
     "run-tests": "npx ts-mocha tests/**/*.ts",
     "test": "tsc && npm run run-tests",
     "build": "tsc",
